@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html ng-app="TodoApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Node/Angular Todo App</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <style>
+        html { overflow-y:scroll; }
+        body { padding-top:50px; }
+        #todo-list { margin-bottom:30px; }
+        .red { color: red; }
+        .green { color: green; }
+    </style>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="core.js"></script>
+</head>
+<body ng-controller="MainController">
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h2>There are <span class="label label-info">{{todos.length}}</span> items on your Todo list!</h2>
+        </div>
+        <div id="todo-list" class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="checkbox" ng-repeat="todo in todos">
+                    {{$index+1}}.)
+                    <input type="checkbox" ng-model="todo.done" ng-change="updateTodo(todo._id, todo.done)"></inpput>
+                    <label>
+                        {{todo.text}} - 
+                        <span ng-click="deleteTodo(todo._id)" style="color:red">delete</span>
+                        <br/>
+                        <small>completed?: <span ng-class="{'red': todo.done == false, 'green': todo.done == true}">{{todo.done}}</span></small>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="todo-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg text-center" placeholder="What do you need to do?" ng-model="formData.text">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
